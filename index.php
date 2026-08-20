@@ -122,7 +122,7 @@ $resultado = $conexao->query($sql); //tinha erro
                 </td>
 
                 <td>
-                    <a href="index.php?exluir=<?= $usuario ['id'] ?>">
+                    <a href="index.php?excluir=<?= $usuario ['id'] ?>">
                         excluir
                     </a>
                 </td>
