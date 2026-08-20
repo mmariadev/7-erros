@@ -1,0 +1,13 @@
+
+CREATE DATABASE IF NOT EXISTS crud_aula
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_general_ci;
+
+USE crud_aula;
+
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

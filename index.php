@@ -2,13 +2,13 @@
 
 $host = "localhost";
 $user = "root";
-$password = "";
+$password = "root";
 $database = "crud_aula";
 
-$conn = new mysqli ($host, $user, $password, $database);
+$conexao = new mysqli ($host, $user, $password, $database);
 
-if ($conn->connect_error) {
-    die ("erro na conexão: ". $conn->connect_error); //tinha erro
+if ($conexao->connect_error) {
+    die ("erro na conexão: ". $conexao->connect_error); //tinha erro
 }
 
 // CADASTRAR
@@ -18,7 +18,7 @@ if (isset($_POST['cadastrar'])){
     $email = $_POST['email'];
 
     $sql = "INSERT INTO usuarios (nome, email) VALUE (?, ?)";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexao->prepare($sql);
 
     $stmt->bind_param ("ss", $nome, $email);
     $stmt->execute();
@@ -33,7 +33,7 @@ if (isset($_GET['excluir'])){
     $id = $_GET['excluir'];
 
 $sql = "DELETE FROM usuarios WHERE id = ?";
-$stmt = $conn->prepare($sql);
+$stmt = $conexao->prepare($sql);
 
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -49,9 +49,9 @@ if(isset($_POST['editar'])){
     $email = $_POST['email'];
 
     $sql = "UPDATE usuarios SET nome = ?, email = ? WHERE id = ?";
-    $stmt = $conn->prepare($sql);
+    $stmt = $conexao->prepare($sql);
 
-    $stmt->bind_param("ssi", $nome, $email, $id); //tinha erro 
+    $stmt->bind_param("ssi", $nome, $email, $id);//tinha erro 
     $stmt->execute();
 
     header("Location: index.php");
@@ -60,7 +60,7 @@ if(isset($_POST['editar'])){
 
 //BUSCAR USUÁRIOS
 $sql = "SELECT id, nome, email FROM usuarios ORDER BY id DESC";
-$resultado = $conn->query($sql); //tinha erro
+$resultado = $conexao->query($sql); //tinha erro
 
 ?>
 
@@ -110,26 +110,26 @@ $resultado = $conn->query($sql); //tinha erro
             <tr>
 
                 <td>
-                    <?=$usuario['id'] ?>
+                    <?= $usuario['id'] ?>
                 </td>
 
                 <td>
-                    <?= $usuario['nome'] ?>
+                    <?= htmlspecialchars($usuario['nome']) ?>
                 </td>
 
                 <td>
-                    <?= $usuario['email'] ?>
+                    <?= htmlspecialchars($usuario['email']) ?>
                 </td>
 
                 <td>
-                    <a href="idex.php?exluir=<?= $usuario ['id'] ?>">
+                    <a href="index.php?exluir=<?= $usuario ['id'] ?>">
                         excluir
                     </a>
                 </td>
 
             </tr>
             
-        <?php } ?> // erro
+        <?php } ?> 
     
     </table>
 
@@ -138,4 +138,4 @@ $resultado = $conn->query($sql); //tinha erro
 </html>
         
 
-        }
+        
